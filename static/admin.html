@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>RAHMAH Staff</title>
+<style>
+  :root { --bg: #f4f6fb; --panel: #fff; --ink: #14203f; --muted: #5b6684; --navy: #1b2a6b; --gold: #f2b705; --line: #dfe3ee;
+          --ok: #1a7f4b; --warn: #a15c00; --bad: #b42318; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0f1530; --panel: #161d3d; --ink: #e8ecf8; --muted: #a3acc8; --line: #2a3360; --ok: #6fd3a0; --warn: #f0b45a; --bad: #ff8a7a; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 16px; }
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .logo { width: 36px; height: 36px; border-radius: 10px; background: var(--navy); color: var(--gold); display: grid; place-items: center; font-weight: 800; }
+  h1 { font-size: 18px; margin: 0; } h2 { font-size: 16px; margin: 0 0 8px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  label { display: block; font-size: 13px; color: var(--muted); margin: 10px 0 4px; }
+  input, select, textarea { width: 100%; font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--ink); }
+  textarea { min-height: 70px; resize: vertical; }
+  button { font: inherit; cursor: pointer; border-radius: 8px; padding: 7px 12px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+  .primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .approve { border-color: var(--ok); color: var(--ok); } .changes { border-color: var(--warn); color: var(--warn); } .reject { border-color: var(--bad); color: var(--bad); }
+  .tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tabs button[aria-selected="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .row select { width: auto; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; } @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+  .item { border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+  .item summary { cursor: pointer; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .pill { font-size: 12px; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--line); }
+  .s-approved { color: var(--ok); border-color: var(--ok); } .s-needs_changes { color: var(--warn); border-color: var(--warn); }
+  .s-rejected { color: var(--bad); border-color: var(--bad); } .s-draft { color: var(--muted); }
+  .muted { color: var(--muted); font-size: 13px; } .ar { direction: rtl; font-size: 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .msg { font-size: 14px; margin-top: 8px; } .ok { color: var(--ok); } .err { color: var(--bad); }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><div class="logo">ر</div><h1>RAHMAH staff</h1><span class="muted" id="who"></span></header>
+
+  <section class="panel" id="login">
+    <h2>Sign in</h2>
+    <p class="muted">For KIRKHS reviewers (Qur'an, hadith and du'a) and CCSC counsellors (exercises and callback requests).</p>
+    <form id="loginForm">
+      <div class="grid2">
+        <div><label for="role">Team</label><select id="role"><option value="kirkhs">KIRKHS</option><option value="ccsc">CCSC</option></select></div>
+        <div><label for="pw">Team password</label><input id="pw" type="password" autocomplete="current-password" required></div>
+      </div>
+      <label for="name">Your name (recorded on each review)</label><input id="name" required maxlength="100">
+      <p><button class="primary">Sign in</button></p>
+      <div class="msg" id="loginMsg"></div>
+    </form>
+  </section>
+
+  <section id="app" hidden>
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="content" aria-selected="true">Content review</button>
+      <button role="tab" data-tab="callbacks" id="cbTab">Callback requests</button>
+      <button role="tab" data-tab="feedback">Feedback</button>
+      <button id="logout">Sign out</button>
+    </div>
+
+    <div id="tab-content" class="panel">
+      <div class="row" style="justify-content:space-between">
+        <h2>Content library</h2>
+        <div class="row">
+          <select id="fStatus" aria-label="Filter by status"><option value="">All statuses</option><option>draft</option><option>needs_changes</option><option>approved</option><option>rejected</option></select>
+          <select id="fMine" aria-label="Filter by team"><option value="mine">My team's items</option><option value="">All items</option></select>
+        </div>
+      </div>
+      <p class="muted" id="counts"></p>
+      <div id="items"></div>
+      <details class="item"><summary><strong>Add a new item</strong></summary>
+        <form id="newForm">
+          <div class="grid2">
+            <div><label>Id (lowercase, e.g. q-3-139)</label><input name="id" required pattern="[a-z0-9\-]{3,64}"></div>
+            <div><label>Type</label><select name="type" id="newType"></select></div>
+          </div>
+          <label>Reference (e.g. Qur'an 3:139, Sahih Muslim 2999)</label><input name="ref" required>
+          <label>Arabic (optional)</label><textarea name="arabic" class="ar"></textarea>
+          <div class="grid2">
+            <div><label>English text</label><textarea name="text_en" required></textarea></div>
+            <div><label>Bahasa Melayu text</label><textarea name="text_ms"></textarea></div>
+          </div>
+          <label>Emotion tags, comma separated (anxiety, stress, academic, sadness, loneliness, anger, guilt, overwhelm, general)</label><input name="tags" required>
+          <p><button class="primary">Add as draft</button></p>
+          <div class="msg" id="newMsg"></div>
+        </form>
+      </details>
+    </div>
+
+    <div id="tab-callbacks" class="panel" hidden>
+      <h2>Callback requests</h2>
+      <p class="muted" id="cbNote"></p>
+      <div id="cbList"></div>
+    </div>
+
+    <div id="tab-feedback" class="panel" hidden>
+      <h2>Anonymous feedback</h2>
+      <p class="muted">Counts only. No conversation text is ever stored.</p>
+      <div id="fbList"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let auth = null, role = null, reviewer = '', items = [];
+const RELIGIOUS = ['quran', 'dua', 'hadith'];
+
+async function api(path, opts = {}) {
+  const r = await fetch(path, { ...opts, headers: { 'Content-Type': 'application/json', 'Authorization': auth, ...(opts.headers || {}) } });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(typeof d.detail === 'string' ? d.detail : 'Request failed (' + r.status + ')');
+  return d;
+}
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e[k] = v; else e.setAttribute(k, v); }
+  kids.flat().forEach(k => e.append(k instanceof Node ? k : document.createTextNode(k ?? '')));
+  return e;
+}
+
+$('loginForm').onsubmit = async e => {
+  e.preventDefault();
+  auth = 'Basic ' + btoa($('role').value + ':' + $('pw').value); reviewer = $('name').value.trim();
+  try {
+    const me = await api('/api/admin/me'); role = me.role;
+    $('login').hidden = true; $('app').hidden = false;
+    $('who').textContent = `Signed in as ${reviewer} (${role.toUpperCase()}) · app mode: ${me.mode}`;
+    $('cbTab').hidden = role !== 'ccsc';
+    $('newType').innerHTML = '';
+    (role === 'kirkhs' ? RELIGIOUS : ['exercise']).forEach(t => $('newType').append(el('option', {}, t)));
+    loadContent();
+  } catch (err) { $('loginMsg').className = 'msg err'; $('loginMsg').textContent = 'Sign-in failed: ' + err.message; auth = null; }
+};
+$('logout').onclick = () => location.reload();
+
+document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => {
+  document.querySelectorAll('[data-tab]').forEach(x => x.setAttribute('aria-selected', x === b));
+  ['content', 'callbacks', 'feedback'].forEach(t => $('tab-' + t).hidden = t !== b.dataset.tab);
+  if (b.dataset.tab === 'callbacks') loadCallbacks();
+  if (b.dataset.tab === 'feedback') loadFeedback();
+});
+
+async function loadContent() { items = (await api('/api/admin/content')).items; renderContent(); }
+$('fStatus').onchange = renderContent; $('fMine').onchange = renderContent;
+
+function renderContent() {
+  const box = $('items'); box.innerHTML = '';
+  const st = $('fStatus').value, mine = $('fMine').value === 'mine';
+  const shown = items.filter(i => (!st || i.status === st) && (!mine || i.can_review));
+  const c = {}; items.forEach(i => c[i.status] = (c[i.status] || 0) + 1);
+  $('counts').textContent = `${items.length} items · ${c.approved || 0} approved · ${c.draft || 0} draft · ${c.needs_changes || 0} need changes · ${c.rejected || 0} rejected`;
+  shown.forEach(i => box.append(itemView(i)));
+  if (!shown.length) box.append(el('p', { class: 'muted' }, 'No items match this filter.'));
+}
+
+function itemView(i) {
+  const f = {};
+  const field = (name, label, multiline, cls) => {
+    f[name] = multiline ? el('textarea', { class: cls || '' }) : el('input');
+    f[name].value = name === 'tags' ? i.tags.join(', ') : (i[name] || '');
+    if (!i.can_review) f[name].disabled = true;
+    return [el('label', {}, label), f[name]];
+  };
+  const msg = el('div', { class: 'msg' });
+  const save = async status => {
+    const body = { reviewer, ref: f.ref.value, arabic: f.arabic.value || null, text_en: f.text_en.value, text_ms: f.text_ms.value || null,
+      tags: f.tags.value.split(',').map(s => s.trim()).filter(Boolean), notes: f.notes.value || null };
+    if (status) body.status = status;
+    try { await api('/api/admin/content/' + encodeURIComponent(i.id), { method: 'PUT', body: JSON.stringify(body) }); msg.className = 'msg ok'; msg.textContent = 'Saved.'; await loadContent(); }
+    catch (err) { msg.className = 'msg err'; msg.textContent = err.message; }
+  };
+  const actions = i.can_review ? el('div', { class: 'row' },
+    el('button', { class: 'approve', type: 'button', onclick: () => save('approved') }, 'Approve'),
+    el('button', { class: 'changes', type: 'button', onclick: () => save('needs_changes') }, 'Needs changes'),
+    el('button', { class: 'reject', type: 'button', onclick: () => save('rejected') }, 'Reject'),
+    el('button', { type: 'button', onclick: () => save(null) }, 'Save edits as draft')) :
+    el('p', { class: 'muted' }, 'Reviewed by the ' + (RELIGIOUS.includes(i.type) ? 'KIRKHS' : 'CCSC') + ' team.');
+  const meta = i.reviewer ? `Last reviewed by ${i.reviewer}${i.reviewed_at ? ' on ' + new Date(i.reviewed_at).toLocaleString() : ''}` : 'Not yet reviewed';
+  return el('details', { class: 'item' },
+    el('summary', {}, el('strong', {}, i.ref), el('span', { class: 'pill' }, i.type), el('span', { class: 'pill s-' + i.status }, i.status.replace('_', ' ')),
+      el('span', { class: 'muted' }, i.text_en.slice(0, 70) + (i.text_en.length > 70 ? '…' : ''))),
+    el('p', { class: 'muted' }, meta),
+    ...field('ref', 'Reference'), ...field('arabic', 'Arabic', true, 'ar'),
+    el('div', { class: 'grid2' }, el('div', {}, ...field('text_en', 'English text', true)), el('div', {}, ...field('text_ms', 'Bahasa Melayu text', true))),
+    ...field('tags', 'Emotion tags (comma separated)'), ...field('notes', 'Reviewer notes', true),
+    el('p', {}, actions), msg);
+}
+
+$('newForm').onsubmit = async e => {
+  e.preventDefault(); const fd = new FormData(e.target); const m = $('newMsg');
+  const body = Object.fromEntries(fd.entries());
+  body.tags = body.tags.split(',').map(s => s.trim()).filter(Boolean); body.reviewer = reviewer;
+  if (!body.arabic) body.arabic = null; if (!body.text_ms) body.text_ms = null;
+  try { await api('/api/admin/content', { method: 'POST', body: JSON.stringify(body) }); m.className = 'msg ok'; m.textContent = 'Added as draft.'; e.target.reset(); loadContent(); }
+  catch (err) { m.className = 'msg err'; m.textContent = err.message; }
+};
+
+async function loadCallbacks() {
+  const d = await api('/api/admin/callbacks'); const box = $('cbList'); box.innerHTML = '';
+  $('cbNote').textContent = `Requests are deleted automatically ${d.retention_days} days after they are made. Call during office hours and mark each request when done.`;
+  if (!d.callbacks.length) { box.append(el('p', { class: 'muted' }, 'No requests.')); return; }
+  const tb = el('tbody');
+  d.callbacks.forEach(c => {
+    const sel = el('select', { 'aria-label': 'Status' }, ...['new', 'contacted', 'closed'].map(s => { const o = el('option', {}, s); if (s === c.status) o.selected = true; return o; }));
+    const m = el('span', { class: 'muted' });
+    sel.onchange = async () => { try { await api('/api/admin/callbacks/' + c.id, { method: 'PATCH', body: JSON.stringify({ status: sel.value, handled_by: reviewer }) }); m.textContent = ' saved'; } catch (err) { m.textContent = ' ' + err.message; } };
+    tb.append(el('tr', {}, el('td', {}, new Date(c.created_at).toLocaleString()), el('td', {}, el('a', { href: 'tel:' + c.phone }, c.phone)),
+      el('td', {}, c.preferred_time || '–'), el('td', {}, c.lang === 'ms' ? 'BM' : 'EN'), el('td', {}, sel, m), el('td', {}, c.handled_by || '–')));
+  });
+  box.append(el('table', {}, el('thead', {}, el('tr', {}, ...['Requested', 'Phone', 'Best time', 'Language', 'Status', 'Handled by'].map(h => el('th', {}, h)))), tb));
+}
+
+async function loadFeedback() {
+  const d = await api('/api/admin/feedback'); const box = $('fbList'); box.innerHTML = '';
+  const days = {};
+  d.rows.forEach(r => { const k = r.day; days[k] = days[k] || { yes: 0, no: 0, en: 0, ms: 0 }; days[k][r.helpful ? 'yes' : 'no'] += r.n; days[k][r.lang] += r.n; });
+  const keys = Object.keys(days).sort().reverse();
+  if (!keys.length) { box.append(el('p', { class: 'muted' }, 'No feedback yet.')); return; }
+  const tb = el('tbody');
+  keys.forEach(k => { const v = days[k]; const tot = v.yes + v.no;
+    tb.append(el('tr', {}, el('td', {}, k), el('td', {}, String(v.yes)), el('td', {}, String(v.no)), el('td', {}, tot ? Math.round(100 * v.yes / tot) + '%' : '–'), el('td', {}, `${v.en} / ${v.ms}`))); });
+  box.append(el('table', {}, el('thead', {}, el('tr', {}, ...['Day', 'Helpful', 'Not helpful', '% helpful', 'EN / BM'].map(h => el('th', {}, h)))), tb));
+}
+</script>
+</body>
+</html>

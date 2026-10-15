@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>RAHMAH</title>
+<link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#1b2a6b">
+<style>
+  :root {
+    --bg: #f4f6fb; --panel: #ffffff; --ink: #14203f; --muted: #5b6684;
+    --navy: #1b2a6b; --gold: #f2b705; --gold-soft: #fff6d6; --line: #dfe3ee;
+    --crisis: #b42318; --crisis-soft: #fdecea; --bot: #eef1fa; --ok: #1a7f4b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0f1530; --panel: #161d3d; --ink: #e8ecf8; --muted: #a3acc8; --line: #2a3360;
+            --bot: #1f2850; --gold-soft: #3a3214; --crisis-soft: #3d1a17; --crisis: #ff8a7a; --ok: #6fd3a0; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--ink); }
+  .app { max-width: 720px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; background: var(--panel); }
+  header { padding: 12px 16px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 10px; }
+  .logo { width: 40px; height: 40px; border-radius: 12px; background: var(--navy); color: var(--gold); display: grid; place-items: center; font-weight: 800; font-size: 20px; flex: none; }
+  header h1 { margin: 0; font-size: 18px; } header p { margin: 0; color: var(--muted); font-size: 13px; }
+  .spacer { flex: 1; }
+  button { font: inherit; cursor: pointer; }
+  .lang { display: flex; flex: none; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+  .brand { min-width: 0; }
+  @media (max-width: 460px) { header { flex-wrap: wrap; } header p { display: none; } .help-btn { order: 5; width: 100%; } }
+  header h1 { white-space: nowrap; }
+  .lang button { border: 0; background: none; color: var(--muted); padding: 6px 10px; font-size: 13px; font-weight: 600; }
+  .lang button[aria-pressed="true"] { background: var(--navy); color: #fff; }
+  .help-btn { flex: none; white-space: nowrap; background: var(--crisis); color: #fff; border: 0; border-radius: 999px; padding: 8px 14px; font-weight: 600; font-size: 14px; }
+  .ghost { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; padding: 7px 12px; font-size: 13px; }
+  .demo { margin: 12px 16px 0; padding: 8px 12px; border: 1px dashed var(--gold); border-radius: 10px; font-size: 13px; }
+  .notice { margin: 12px 16px 0; padding: 10px 12px; background: var(--gold-soft); border-radius: 10px; font-size: 13px; }
+  main { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 85%; padding: 10px 14px; border-radius: 16px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .user { align-self: flex-end; background: var(--navy); color: #fff; border-bottom-right-radius: 4px; }
+  .bot { align-self: flex-start; background: var(--bot); border-bottom-left-radius: 4px; }
+  .bot.crisis { background: var(--crisis-soft); border: 1px solid var(--crisis); }
+  .fb { align-self: flex-start; display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--muted); margin-top: -4px; }
+  .fb button { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 2px 10px; font-size: 13px; color: var(--ink); }
+  .card { align-self: flex-start; max-width: 85%; border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: 14px; }
+  .card .ar { font-size: 20px; direction: rtl; text-align: right; margin-bottom: 4px; font-family: "Amiri", "Noto Naskh Arabic", serif; }
+  .card .ref { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .tag { display: inline-block; font-size: 11px; border: 1px solid var(--gold); border-radius: 999px; padding: 0 8px; margin-left: 6px; color: var(--muted); }
+  .moods { display: flex; flex-wrap: wrap; gap: 8px; }
+  .moods button { border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 999px; padding: 8px 14px; }
+  form.chat { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--line); }
+  textarea { flex: 1; resize: none; font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--ink); min-height: 44px; max-height: 140px; }
+  .send { background: var(--navy); color: #fff; border: 0; border-radius: 12px; padding: 0 18px; font-weight: 600; }
+  .send:disabled { opacity: .5; }
+  .foot { padding: 0 16px 12px; display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-wrap: wrap; font-size: 13px; }
+  dialog { border: 0; border-radius: 16px; max-width: 440px; width: calc(100% - 32px); background: var(--panel); color: var(--ink); max-height: 90dvh; }
+  dialog h2 { margin-top: 0; font-size: 18px; } dialog h3 { font-size: 15px; margin: 18px 0 6px; }
+  dialog ul { padding-left: 18px; } dialog li { margin-bottom: 8px; }
+  label { display: block; font-size: 14px; margin: 8px 0 4px; }
+  input[type=tel], input[type=text] { width: 100%; font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--ink); }
+  .check { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; }
+  .primary { background: var(--navy); color: #fff; border: 0; border-radius: 10px; padding: 8px 14px; font-weight: 600; margin-top: 10px; }
+  .small { font-size: 12px; color: var(--muted); }
+  .okmsg { color: var(--ok); font-size: 14px; } .err { color: var(--crisis); font-size: 14px; }
+  a { color: inherit; font-weight: 600; }
+  .typing { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo" aria-hidden="true">ر</div>
+    <div class="brand"><h1>RAHMAH</h1><p data-i18n="tagline"></p></div>
+    <div class="spacer"></div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ms" aria-pressed="false">BM</button>
+    </div>
+    <button class="help-btn" id="helpBtn" data-i18n="help"></button>
+  </header>
+  <div class="demo" id="demo" hidden data-i18n="demo"></div>
+  <div class="notice" data-i18n="notice"></div>
+  <main id="chat" aria-live="polite"></main>
+  <form class="chat" id="form">
+    <textarea id="input" rows="1" aria-label="Message"></textarea>
+    <button class="send" id="send" data-i18n="send"></button>
+  </form>
+  <div class="foot">
+    <span id="survey"></span>
+    <button class="ghost" id="endBtn" data-i18n="end"></button>
+  </div>
+</div>
+
+<dialog id="help">
+  <h2 data-i18n="helpTitle"></h2>
+  <ul id="helpList"></ul>
+  <p style="font-size:14px" data-i18n-html="danger"></p>
+  <section id="cbSection" hidden>
+    <h3 data-i18n="cbTitle"></h3>
+    <p class="small" data-i18n="cbIntro"></p>
+    <p class="small" id="cbDemo" hidden data-i18n="cbDemo"></p>
+    <form id="cbForm">
+      <label for="cbPhone" data-i18n="cbPhone"></label>
+      <input type="tel" id="cbPhone" inputmode="tel" autocomplete="off" placeholder="012-345 6789" required>
+      <label for="cbTime" data-i18n="cbTime"></label>
+      <input type="text" id="cbTime" maxlength="40" autocomplete="off">
+      <label class="check"><input type="checkbox" id="cbConsent" required> <span id="cbConsentText"></span></label>
+      <button class="primary" data-i18n="cbSend"></button>
+      <div id="cbMsg" role="status"></div>
+    </form>
+  </section>
+  <p><button class="ghost" onclick="document.getElementById('help').close()" data-i18n="close"></button></p>
+</dialog>
+
+<script>
+const T = {
+  en: {
+    tagline: "Anonymous support, 24/7", help: "Get help now", send: "Send", end: "End and erase session",
+    placeholder: "Type how you're feeling…", typing: "RAHMAH is typing…",
+    demo: "Demo version for partners and testing. Content is still awaiting scholar and counsellor review.",
+    notice: "You are anonymous. No login, and nothing you type is saved. Closing this page erases the conversation. RAHMAH is a supportive companion, not a counsellor or doctor.",
+    greet: "Assalamualaikum. I'm RAHMAH. This is a safe, anonymous space. How are you feeling today?",
+    moods: [["😟 Anxious", "I'm feeling anxious"], ["😩 Stressed about studies", "I'm stressed about my exams and assignments"], ["😔 Sad", "I'm feeling sad"], ["🫥 Lonely", "I'm feeling lonely"], ["🙂 Okay", "I'm feeling okay, I just want to talk"]],
+    helpful: "Was this helpful?", yes: "Yes", no: "No", thanks: "Thank you for the feedback.",
+    draft: "draft, awaiting review", connectErr: "Sorry, I couldn't connect. If you need to talk to someone now, tap 'Get help now'.",
+    helpTitle: "You don't have to face this alone", danger: "In immediate danger? Call <a href='tel:999'>999</a>.",
+    cbTitle: "Prefer a counsellor to call you?",
+    cbIntro: "This is optional. If you leave a number, an IIUM CCSC counsellor will call you during office hours. Only CCSC can see it, and it is deleted automatically after {days} days.",
+    cbDemo: "Demo version: please do not enter a real phone number.",
+    cbPhone: "Malaysian mobile number", cbTime: "Best time to call (optional)",
+    cbConsent: "I agree to share this number with IIUM CCSC so a counsellor can call me back.",
+    cbSend: "Request a call", cbOk: "Thank you. A CCSC counsellor will call you during office hours. If you feel unsafe before then, please call one of the 24-hour lines above.",
+    close: "Close", survey: "Help improve RAHMAH: 2-minute anonymous survey",
+  },
+  ms: {
+    tagline: "Sokongan tanpa nama, 24/7", help: "Dapatkan bantuan", send: "Hantar", end: "Tamat dan padam sesi",
+    placeholder: "Taip apa yang anda rasa…", typing: "RAHMAH sedang menaip…",
+    demo: "Versi demo untuk rakan kerjasama dan ujian. Kandungan masih menunggu semakan ilmuwan dan kaunselor.",
+    notice: "Anda tidak dikenali. Tiada log masuk, dan apa yang anda taip tidak disimpan. Menutup halaman ini akan memadam perbualan. RAHMAH ialah teman sokongan, bukan kaunselor atau doktor.",
+    greet: "Assalamualaikum. Saya RAHMAH. Ini ruang yang selamat dan tanpa nama. Bagaimana perasaan anda hari ini?",
+    moods: [["😟 Risau", "Saya rasa risau"], ["😩 Tertekan dengan pelajaran", "Saya tertekan dengan peperiksaan dan tugasan"], ["😔 Sedih", "Saya rasa sedih"], ["🫥 Sunyi", "Saya rasa sunyi"], ["🙂 Okey", "Saya okey, cuma mahu berbual"]],
+    helpful: "Adakah ini membantu?", yes: "Ya", no: "Tidak", thanks: "Terima kasih atas maklum balas anda.",
+    draft: "draf, menunggu semakan", connectErr: "Maaf, sambungan gagal. Jika anda perlu bercakap dengan seseorang sekarang, tekan 'Dapatkan bantuan'.",
+    helpTitle: "Anda tidak keseorangan", danger: "Dalam bahaya segera? Hubungi <a href='tel:999'>999</a>.",
+    cbTitle: "Mahu kaunselor menelefon anda?",
+    cbIntro: "Ini pilihan anda. Jika anda meninggalkan nombor, kaunselor CCSC UIAM akan menelefon anda dalam waktu pejabat. Hanya CCSC boleh melihatnya, dan ia dipadam secara automatik selepas {days} hari.",
+    cbDemo: "Versi demo: jangan masukkan nombor telefon sebenar.",
+    cbPhone: "Nombor telefon bimbit Malaysia", cbTime: "Masa sesuai untuk dihubungi (pilihan)",
+    cbConsent: "Saya bersetuju berkongsi nombor ini dengan CCSC UIAM supaya kaunselor boleh menelefon saya.",
+    cbSend: "Minta panggilan", cbOk: "Terima kasih. Kaunselor CCSC akan menelefon anda dalam waktu pejabat. Jika anda berasa tidak selamat sebelum itu, sila hubungi talian 24 jam di atas.",
+    close: "Tutup", survey: "Bantu tambah baik RAHMAH: tinjauan tanpa nama 2 minit",
+  }
+};
+
+const $ = id => document.getElementById(id);
+const chat = $('chat'), input = $('input'), sendBtn = $('send');
+let lang = 'en', history = [], cfg = { mode: 'demo', callback_enabled: true, survey_url: null, resources: [] }, retention = 14;
+try { const s = localStorage.getItem('rahmah-lang'); if (s === 'en' || s === 'ms') lang = s; } catch (e) {}
+
+function t(k) { return T[lang][k]; }
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = t(el.dataset.i18n));
+  document.querySelectorAll('[data-i18n-html]').forEach(el => el.innerHTML = t(el.dataset.i18nHtml));
+  document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+  input.placeholder = t('placeholder');
+  $('cbConsentText').textContent = t('cbConsent');
+  document.querySelector('[data-i18n="cbIntro"]').textContent = t('cbIntro').replace('{days}', retention);
+  const sv = $('survey'); sv.innerHTML = '';
+  if (cfg.survey_url) { const a = document.createElement('a'); a.href = cfg.survey_url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = t('survey'); sv.appendChild(a); }
+}
+async function loadConfig() {
+  try { const r = await fetch('/api/config?lang=' + lang); cfg = await r.json(); retention = cfg.retention_days || retention; } catch (e) {}
+  $('demo').hidden = cfg.mode !== 'demo';
+  $('cbSection').hidden = !cfg.callback_enabled;
+  $('cbDemo').hidden = cfg.mode !== 'demo';
+  renderHelp(); applyLang();
+}
+function add(cls, text) {
+  const d = document.createElement('div'); d.className = 'msg ' + cls; d.textContent = text;
+  chat.appendChild(d); chat.scrollTop = chat.scrollHeight; return d;
+}
+function addCard(item) {
+  const d = document.createElement('div'); d.className = 'card';
+  if (item.arabic) { const a = document.createElement('div'); a.className = 'ar'; a.lang = 'ar'; a.textContent = item.arabic; d.appendChild(a); }
+  const tx = document.createElement('div'); tx.textContent = item.text; d.appendChild(tx);
+  const r = document.createElement('div'); r.className = 'ref'; r.textContent = item.ref;
+  if (cfg.mode === 'demo' && item.status !== 'approved') { const g = document.createElement('span'); g.className = 'tag'; g.textContent = t('draft'); r.appendChild(g); }
+  d.appendChild(r); chat.appendChild(d);
+}
+function addFeedback(replyType) {
+  const w = document.createElement('div'); w.className = 'fb';
+  const lbl = document.createElement('span'); lbl.textContent = t('helpful'); w.appendChild(lbl);
+  [[true, '👍 ' + t('yes')], [false, '👎 ' + t('no')]].forEach(([v, txt]) => {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = txt;
+    b.onclick = () => {
+      fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ helpful: v, reply_type: replyType, lang }) }).catch(() => {});
+      w.textContent = t('thanks');
+    };
+    w.appendChild(b);
+  });
+  chat.appendChild(w);
+}
+function telLink(c) { return 'tel:' + c.replace(/[^0-9+]/g, ''); }
+function renderHelp() {
+  const ul = $('helpList'); ul.innerHTML = '';
+  (cfg.resources || []).forEach(r => {
+    const li = document.createElement('li'); const a = document.createElement('a'); a.href = telLink(r.contact); a.textContent = r.contact;
+    li.append(r.name + ': ', a, ' (' + r.hours + ')'); ul.appendChild(li);
+  });
+}
+function openHelp() { renderHelp(); $('help').showModal(); }
+function greet() {
+  add('bot', t('greet'));
+  const m = document.createElement('div'); m.className = 'moods';
+  t('moods').forEach(([label, text]) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.onclick = () => { m.remove(); send(text); }; m.appendChild(b); });
+  chat.appendChild(m);
+}
+async function send(text) {
+  text = text.trim(); if (!text) return;
+  add('user', text); history.push({ role: 'user', content: text });
+  input.value = ''; sendBtn.disabled = true;
+  const typing = add('bot typing', t('typing'));
+  try {
+    const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history.slice(-20), lang }) });
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json(); typing.remove();
+    add('bot' + (data.type === 'crisis' ? ' crisis' : ''), data.reply);
+    (data.items || []).filter(i => i.type !== 'exercise').forEach(addCard);
+    addFeedback(data.type);
+    history.push({ role: 'assistant', content: data.reply });
+    if (data.type === 'crisis') { cfg.resources = data.resources || cfg.resources; openHelp(); }
+  } catch (e) { typing.remove(); add('bot crisis', t('connectErr')); }
+  sendBtn.disabled = false; input.focus();
+}
+$('form').onsubmit = e => { e.preventDefault(); send(input.value); };
+input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); } });
+$('helpBtn').onclick = openHelp;
+$('endBtn').onclick = () => { history = []; chat.innerHTML = ''; greet(); };
+document.querySelectorAll('.lang button').forEach(b => b.onclick = () => {
+  lang = b.dataset.lang; try { localStorage.setItem('rahmah-lang', lang); } catch (e) {}
+  applyLang(); loadConfig();
+  if (history.length === 0) { chat.innerHTML = ''; greet(); }
+});
+$('cbForm').onsubmit = async e => {
+  e.preventDefault(); const msg = $('cbMsg'); msg.className = ''; msg.textContent = '';
+  try {
+    const r = await fetch('/api/callback', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: $('cbPhone').value, preferred_time: $('cbTime').value || null, consent: $('cbConsent').checked, lang }) });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.detail && typeof d.detail === 'string' ? d.detail : 'Error');
+    $('cbForm').reset(); msg.className = 'okmsg'; msg.textContent = t('cbOk');
+  } catch (err) { msg.className = 'err'; msg.textContent = err.message; }
+};
+applyLang(); greet(); loadConfig();
+</script>
+</body>
+</html>

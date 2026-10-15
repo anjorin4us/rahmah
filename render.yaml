@@ -1,0 +1,28 @@
+# Render Blueprint: New > Blueprint > connect this repo. Fill in the secret values when Render asks.
+services:
+  - type: web
+    name: rahmah
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    # --no-access-log: do not record visitors' IP addresses in server logs
+    startCommand: uvicorn rahmah.app:app --host 0.0.0.0 --port $PORT --no-access-log --proxy-headers
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: APP_MODE
+        value: demo
+      - key: DATABASE_URL        # Neon free Postgres connection string
+        sync: false
+      - key: GROQ_API_KEY        # free key from console.groq.com
+        sync: false
+      - key: KIRKHS_PASSWORD
+        generateValue: true
+      - key: CCSC_PASSWORD
+        generateValue: true
+      - key: SURVEY_URL          # optional: your anonymous pilot survey link
+        sync: false
+      - key: CALLBACK_RETENTION_DAYS
+        value: "14"

@@ -1,0 +1,262 @@
+{
+  "_note": "DRAFT content. Every item, including its Malay translation (text_ms), must be reviewed and approved by a KIRKHS scholar (religious items) or a CCSC counsellor (exercises) before students see it in pilot mode. After first run, review happens in the /admin page and the database becomes the source of truth.",
+  "items": [
+    {
+      "id": "q-13-28",
+      "type": "quran",
+      "ref": "Qur'an 13:28",
+      "arabic": "أَلَا بِذِكْرِ ٱللَّهِ تَطْمَئِنُّ ٱلْقُلُوبُ",
+      "text": "Verily, in the remembrance of Allah do hearts find rest.",
+      "tags": [
+        "anxiety",
+        "stress",
+        "loneliness",
+        "general"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Ketahuilah, dengan mengingati Allah, hati akan menjadi tenang."
+    },
+    {
+      "id": "q-94-5-6",
+      "type": "quran",
+      "ref": "Qur'an 94:5-6",
+      "arabic": "فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ ٱلْعُسْرِ يُسْرًا",
+      "text": "For indeed, with hardship comes ease. Indeed, with hardship comes ease.",
+      "tags": [
+        "stress",
+        "sadness",
+        "hopelessness",
+        "academic"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Maka sesungguhnya bersama kesulitan ada kemudahan. Sesungguhnya bersama kesulitan ada kemudahan."
+    },
+    {
+      "id": "q-2-286",
+      "type": "quran",
+      "ref": "Qur'an 2:286",
+      "arabic": "لَا يُكَلِّفُ ٱللَّهُ نَفْسًا إِلَّا وُسْعَهَا",
+      "text": "Allah does not burden a soul beyond what it can bear.",
+      "tags": [
+        "stress",
+        "academic",
+        "overwhelm"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Allah tidak membebani seseorang melainkan sesuai dengan kemampuannya."
+    },
+    {
+      "id": "q-65-3",
+      "type": "quran",
+      "ref": "Qur'an 65:3",
+      "arabic": "وَمَن يَتَوَكَّلْ عَلَى ٱللَّهِ فَهُوَ حَسْبُهُۥ",
+      "text": "And whoever relies upon Allah, then He is sufficient for him.",
+      "tags": [
+        "anxiety",
+        "worry",
+        "future"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Dan sesiapa yang bertawakal kepada Allah, maka Allah akan mencukupkan keperluannya."
+    },
+    {
+      "id": "q-39-53",
+      "type": "quran",
+      "ref": "Qur'an 39:53",
+      "arabic": "لَا تَقْنَطُوا۟ مِن رَّحْمَةِ ٱللَّهِ",
+      "text": "Do not despair of the mercy of Allah.",
+      "tags": [
+        "guilt",
+        "shame",
+        "hopelessness",
+        "sadness"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Janganlah kamu berputus asa daripada rahmat Allah."
+    },
+    {
+      "id": "q-2-153",
+      "type": "quran",
+      "ref": "Qur'an 2:153",
+      "arabic": "ٱسْتَعِينُوا۟ بِٱلصَّبْرِ وَٱلصَّلَوٰةِ ۚ إِنَّ ٱللَّهَ مَعَ ٱلصَّـٰبِرِينَ",
+      "text": "Seek help through patience and prayer. Indeed, Allah is with the patient.",
+      "tags": [
+        "stress",
+        "sadness",
+        "general"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Mohonlah pertolongan dengan sabar dan solat. Sesungguhnya Allah bersama orang-orang yang sabar."
+    },
+    {
+      "id": "d-anxiety-sorrow",
+      "type": "dua",
+      "ref": "Sahih al-Bukhari 6369",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ",
+      "text": "O Allah, I seek refuge in You from anxiety and sorrow.",
+      "tags": [
+        "anxiety",
+        "sadness",
+        "worry"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Ya Allah, aku berlindung kepada-Mu daripada kerisauan dan kesedihan."
+    },
+    {
+      "id": "d-yunus",
+      "type": "dua",
+      "ref": "Qur'an 21:87",
+      "arabic": "لَّآ إِلَـٰهَ إِلَّآ أَنتَ سُبْحَـٰنَكَ إِنِّى كُنتُ مِنَ ٱلظَّـٰلِمِينَ",
+      "text": "There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.",
+      "tags": [
+        "guilt",
+        "sadness",
+        "overwhelm"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Tiada Tuhan melainkan Engkau, Maha Suci Engkau, sesungguhnya aku termasuk dalam kalangan orang-orang yang zalim."
+    },
+    {
+      "id": "h-believer-affair",
+      "type": "hadith",
+      "ref": "Sahih Muslim 2999",
+      "arabic": null,
+      "text": "How wonderful is the affair of the believer, for all of it is good. If something good happens to him, he is grateful, and that is good for him. If something bad happens to him, he is patient, and that is good for him.",
+      "tags": [
+        "sadness",
+        "stress",
+        "general"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Alangkah menakjubkan urusan orang beriman, kerana semua urusannya adalah baik. Jika dia mendapat kesenangan, dia bersyukur, dan itu baik baginya. Jika dia ditimpa kesusahan, dia bersabar, dan itu baik baginya."
+    },
+    {
+      "id": "h-thorn",
+      "type": "hadith",
+      "ref": "Sahih al-Bukhari 5641",
+      "arabic": null,
+      "text": "No fatigue, illness, sorrow, sadness, hurt or distress befalls a Muslim, even the prick of a thorn, except that Allah expiates some of his sins because of it.",
+      "tags": [
+        "sadness",
+        "illness",
+        "stress"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Tidaklah seorang Muslim ditimpa keletihan, penyakit, kerisauan, kesedihan, gangguan atau kesusahan, hatta duri yang mencucuknya, melainkan Allah menghapuskan sebahagian dosa-dosanya kerananya."
+    },
+    {
+      "id": "x-box-breathing",
+      "type": "exercise",
+      "ref": "Breathing exercise",
+      "arabic": null,
+      "text": "Box breathing: breathe in for 4 counts, hold for 4, breathe out for 4, hold for 4. Repeat four times. If it helps, say 'SubhanAllah' silently on each out-breath.",
+      "tags": [
+        "anxiety",
+        "stress",
+        "panic"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Pernafasan kotak: tarik nafas selama 4 kiraan, tahan 4 kiraan, hembus 4 kiraan, tahan 4 kiraan. Ulang empat kali. Jika membantu, sebut 'SubhanAllah' dalam hati setiap kali menghembus nafas."
+    },
+    {
+      "id": "x-grounding",
+      "type": "exercise",
+      "ref": "Grounding exercise",
+      "arabic": null,
+      "text": "5-4-3-2-1 grounding: notice 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell and 1 you can taste. It brings your attention back to the present moment.",
+      "tags": [
+        "anxiety",
+        "panic",
+        "overwhelm"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Teknik 5-4-3-2-1: perhatikan 5 perkara yang anda lihat, 4 yang anda boleh sentuh, 3 yang anda dengar, 2 yang anda bau dan 1 yang anda rasa. Ini membawa perhatian anda kembali ke saat ini."
+    },
+    {
+      "id": "x-reframe",
+      "type": "exercise",
+      "ref": "Thought reframing (CBT)",
+      "arabic": null,
+      "text": "Write down the worrying thought. Ask: what is the evidence for it, and against it? What would I tell a friend who had this thought? Then write a more balanced version, and what is within my control today.",
+      "tags": [
+        "anxiety",
+        "academic",
+        "worry",
+        "guilt"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Tulis fikiran yang merisaukan. Tanya: apakah bukti yang menyokongnya, dan yang menafikannya? Apa yang akan saya katakan kepada kawan yang mempunyai fikiran ini? Kemudian tulis versi yang lebih seimbang, dan apa yang dalam kawalan saya hari ini."
+    },
+    {
+      "id": "x-shukr-journal",
+      "type": "exercise",
+      "ref": "Gratitude (shukr) journaling",
+      "arabic": null,
+      "text": "Before sleeping, write three things you are grateful for today, however small, and one person who made your day a little easier.",
+      "tags": [
+        "sadness",
+        "loneliness",
+        "general"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Sebelum tidur, tulis tiga perkara yang anda syukuri hari ini, walaupun kecil, dan seorang yang memudahkan hari anda."
+    },
+    {
+      "id": "x-connect",
+      "type": "exercise",
+      "ref": "Reaching out",
+      "arabic": null,
+      "text": "Loneliness eases with small steps: message one friend or family member today, join a congregational prayer, or visit a club or usrah circle on campus.",
+      "tags": [
+        "loneliness"
+      ],
+      "review": {
+        "status": "draft",
+        "reviewer": null
+      },
+      "text_ms": "Kesunyian berkurang dengan langkah kecil: hantar mesej kepada seorang kawan atau ahli keluarga hari ini, sertai solat berjemaah, atau kunjungi kelab atau usrah di kampus."
+    }
+  ]
+}

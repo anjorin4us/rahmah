@@ -1,0 +1,9 @@
+{
+  "name": "RAHMAH",
+  "short_name": "RAHMAH",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f6fb",
+  "theme_color": "#1b2a6b",
+  "description": "Anonymous wellbeing support for IIUM students, grounded in Islamic psychology."
+}

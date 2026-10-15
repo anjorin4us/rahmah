@@ -1,0 +1,10 @@
+{
+  "_note": "Verified October 2026. Re-check every contact before each release.",
+  "resources": [
+    {"name": "IIUM Counselling & Career Services Centre (Gombak)", "name_ms": "Pusat Kaunseling & Kerjaya UIAM (Gombak)", "contact": "03-6421 4409", "email": "ccsc@iium.edu.my", "hours": "Mon-Thu 8:00-17:00, Fri 8:00-12:15 and 14:45-17:00", "hours_ms": "Isn-Kha 8:00-17:00, Jum 8:00-12:15 dan 14:45-17:00", "url": "https://centre.iium.edu.my/ccsc/contact-us/"},
+    {"name": "Befrienders Kuala Lumpur", "name_ms": "Befrienders Kuala Lumpur", "contact": "03-7627 2929", "hours": "24 hours", "hours_ms": "24 jam", "url": "https://www.befrienders.org.my/"},
+    {"name": "Talian Kasih", "name_ms": "Talian Kasih", "contact": "15999", "hours": "24 hours", "hours_ms": "24 jam"},
+    {"name": "HEAL national mental health line", "name_ms": "Talian HEAL kesihatan mental", "contact": "15555", "hours": "Check current hours", "hours_ms": "Semak waktu operasi semasa"},
+    {"name": "Emergency", "name_ms": "Kecemasan", "contact": "999", "hours": "24 hours", "hours_ms": "24 jam"}
+  ]
+}
